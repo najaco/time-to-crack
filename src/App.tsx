@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.scss';
-import {Calculator} from './Calculator';
+import TimeToCrack from './time-to-crack/TimeToCrack';
 function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <Calculator />
+                <TimeToCrack />
             </header>
         </div>
     );

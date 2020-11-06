@@ -1,13 +1,16 @@
-export function timeToCrack(cracksPerSecond: number, passwordLength: number, numberOfPossibleCharacters: number): Duration {
+export function calculateTimeToCrack(cracksPerSecond: number, passwordLength: number, numberOfPossibleCharacters: number): Duration {
     if (passwordLength === 0) {
         return new Duration();
     }
+    console.log({cracksPerSecond, passwordLength, numberOfPossibleCharacters});
     const milliseconds: number = (numberOfPossibleCharacters ** passwordLength) / cracksPerSecond / 100 * 100;
     const seconds: number = Math.floor((numberOfPossibleCharacters ** passwordLength) / cracksPerSecond);
     console.log(JSON.stringify({ n: numberOfPossibleCharacters ** passwordLength, milliseconds, seconds }));
     return new Duration({ milliseconds, seconds }); //.add(timeToCrack(cracksPerSecond, passwordLength - 1, numberOfPossibleCharacters));
 }
+
 const remainderAndDivide = (a: number, b: number) => { return [a % b, Math.floor(a / b)] }
+
 export class Duration {
     milliseconds: number;
     seconds: number;
