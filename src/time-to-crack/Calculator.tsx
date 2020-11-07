@@ -1,5 +1,6 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form'
 import FormCheck from 'react-bootstrap/FormCheck';
 import FormControl from 'react-bootstrap/FormControl';
 import Accordion from 'react-bootstrap/Accordion'
@@ -12,7 +13,7 @@ type CalculatorProps = {
 }
 
 export const Calculator: FunctionComponent<CalculatorProps> = ({ setDuration }) => {
-    const cracksPerSecond: number = 2800000000;
+    const [cracksPerSecond, setCracksPerSecond] = useState(2800000000);
     const [passwordLength, setPasswordLength] = useState(8);
     const [lowerCase, setLowerCase] = useState(true);
     const [upperCase, setUpperCase] = useState(true);
@@ -30,7 +31,7 @@ export const Calculator: FunctionComponent<CalculatorProps> = ({ setDuration }) 
         setDuration(calculateTimeToCrack(cracksPerSecond, passwordLength, (lowerCase ? 26 : 0) + (upperCase ? 26 : 0) + (specialCharacters ? SPECIAL_CHARACTERS.length : 0)));
         console.log({ password: passwordLength })
     },
-        [passwordLength, lowerCase, upperCase, specialCharacters]);
+        [cracksPerSecond, passwordLength, lowerCase, upperCase, specialCharacters]);
     return (
         <div>
             <Accordion>
@@ -42,6 +43,13 @@ export const Calculator: FunctionComponent<CalculatorProps> = ({ setDuration }) 
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
                         <Card.Body>
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label>Cracks Per Second</Form.Label>
+                                <Form.Control type="input" defaultValue={cracksPerSecond} onChange={(event) => setCracksPerSecond(parseInt(event.target.value))} />
+                                <Form.Text className="text-muted">
+                                    Enter in how many passwords can be cracked per second.
+                            </Form.Text>
+                            </Form.Group>
                             <FormCheck inline label="Lower Case (26)" defaultChecked={lowerCase} onClick={() => { setLowerCase(!lowerCase) }} />
                             <FormCheck inline label="Upper Case (26)" defaultChecked={upperCase} onClick={() => { setUpperCase(!upperCase) }} />
                             <FormCheck inline label={"Special Characters (" + SPECIAL_CHARACTERS.length + ")"} defaultChecked={specialCharacters} onClick={() => { setSpecialCharacters(!specialCharacters) }} />

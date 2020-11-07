@@ -5,6 +5,7 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
+                <h1>Time-To-Crack</h1>
                 <TimeToCrack />
             </header>
         </div>
